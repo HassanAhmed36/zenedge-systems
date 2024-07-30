@@ -138,7 +138,7 @@ class DatabaseSeeder extends Seeder
         Merchants::create([
             'name' => 'First Merchant',
             'payment_gateway_type' => 'Paypal',
-            'payment_gateway_link' => 'https://checkout.jaitpurtrading.com',
+            'payment_gateway_link' => 'https://checkout.guinnesspress.org',
             'payment_gateway_credentials' => json_encode([]),
             'created_at' => '2024-07-05 00:39:00'
         ]);

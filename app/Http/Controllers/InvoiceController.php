@@ -56,7 +56,7 @@ class InvoiceController extends Controller
         try {
 
             $merchant = Merchants::findOrFail($request->input('merchant_id'));
-            $invoiceCode = Str::upper(Str::random(12));
+            $invoiceCode = $this->generateUniqueInvoiceCode();
             $invoiceUrl = $merchant->payment_gateway_link . '/' . $invoiceCode;
             $invoice = Invoice::create([
                 'merchant_id' => $request->input('merchant_id'),
@@ -109,5 +109,16 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         //
+    }
+
+
+    private function generateUniqueInvoiceCode(): string
+    {
+        do {
+            $invoiceCode = Str::upper(Str::random(10) . now()->format('YmdHis'));
+            $exists = Invoice::where('invoice_code', $invoiceCode)->exists();
+        } while ($exists);
+
+        return $invoiceCode;
     }
 }
